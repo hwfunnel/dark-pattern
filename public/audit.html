@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dark Pattern Audit Manager</title>
+  <link rel="stylesheet" href="/audit.css">
+</head>
+<body>
+  <main class="page">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Dark Pattern Checker</p>
+        <h1>검수 목록</h1>
+      </div>
+      <div class="actions">
+        <button id="exportButton" class="ghost" type="button">엑셀 Export</button>
+        <button id="openUploadButton" type="button">파일 업로드</button>
+      </div>
+    </header>
+
+    <section class="tabs">
+      <button class="active" type="button" data-filter="all">전체 <span id="totalCount">0</span></button>
+      <button type="button" data-filter="위험">위험 <span id="highCount">0</span></button>
+      <button type="button" data-filter="보통">보통 <span id="mediumCount">0</span></button>
+      <button type="button" data-filter="낮음">낮음 <span id="lowCount">0</span></button>
+      <button type="button" data-filter="needsReview">확인필요 <span id="needsReviewCount">0</span></button>
+    </section>
+
+    <section class="table-card">
+      <div class="table-top">
+        <h2>전체 <span id="tableCount">0</span></h2>
+        <div class="table-tools">
+          <label class="source-box">
+            <span>업로드 파일</span>
+            <select id="sourceSelect">
+              <option value="all">전체 파일</option>
+            </select>
+          </label>
+          <label class="search-box">
+            <span>검색</span>
+            <input id="searchInput" type="search" placeholder="화면명, 보완점, 근거 검색">
+          </label>
+          <label class="sort-box">
+            <span>정렬</span>
+            <select id="sortSelect">
+              <option value="uploadedAt-desc">최신순</option>
+              <option value="risk-desc">위험도 높은순</option>
+              <option value="needsReview-desc">확인필요 우선</option>
+              <option value="screenName-asc">화면명순</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>이미지 URL</th>
+              <th>분석 화면</th>
+              <th>위험도</th>
+              <th>확인필요</th>
+              <th>보완점</th>
+              <th>개선 이유</th>
+              <th>개선체크리스트(법률상 위반 근거)</th>
+              <th>업로드일자</th>
+              <th>관리</th>
+            </tr>
+          </thead>
+          <tbody id="itemBody"></tbody>
+        </table>
+      </div>
+      <div id="emptyBox" class="empty hidden">아직 업로드된 검수건이 없습니다.</div>
+    </section>
+  </main>
+
+  <div id="uploadModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="uploadTitle">
+    <div class="modal-card">
+      <div class="modal-top">
+        <h2 id="uploadTitle">파일 업로드</h2>
+        <button id="closeUploadButton" class="icon" type="button">×</button>
+      </div>
+      <label id="dropZone" class="drop-zone">
+        <input id="fileInput" type="file" multiple accept=".xlsx,.html,.png,.jpg,.jpeg,.csv,.txt">
+        <strong>파일을 선택하거나 여기에 끌어다 놓으세요</strong>
+        <span>XLSX, HTML, 화면 이미지 파일을 업로드하면 검수 목록으로 자동 매칭됩니다.</span>
+      </label>
+      <p id="statusText" class="status"></p>
+    </div>
+  </div>
+
+  <div id="imagePreviewModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="imagePreviewTitle">
+    <div class="image-modal-card">
+      <div class="modal-top">
+        <h2 id="imagePreviewTitle">이미지 미리보기</h2>
+        <button id="closeImagePreviewButton" class="icon" type="button">×</button>
+      </div>
+      <div class="image-preview-frame">
+        <img id="imagePreview" src="" alt="검수 화면 이미지">
+      </div>
+    </div>
+  </div>
+
+  <script src="/audit.js"></script>
+</body>
+</html>

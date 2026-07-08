@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nemotron Korea Persona Research</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">NK</span>
+        <div>
+          <strong>Nemotron Korea Persona Research</strong>
+          <span>합성 한국 페르소나 리서치 엔진</span>
+        </div>
+      </div>
+      <div id="statusBadge" class="status-badge">연결 확인 중</div>
+    </header>
+
+    <main class="layout">
+      <section class="query-panel">
+        <div class="panel-head">
+          <h1>조사할 유저와 질문을 입력하세요</h1>
+          <p>Nemotron-Personas-Korea 후보에서 관련 표본 5명을 뽑고 그룹 요약과 개인 인터뷰를 생성합니다.</p>
+        </div>
+
+        <label>
+          <span>조사 대상 유저 그룹</span>
+          <textarea id="targetInput" placeholder="예: 서울 20~30대 여성, 뷰티와 인스타그램에 관심 많고 구매력이 높은 집단"></textarea>
+        </label>
+
+        <label>
+          <span>인터뷰 질문</span>
+          <textarea id="questionInput" placeholder="예: AI가 피부 타입을 분석해서 화장품을 추천해주는 서비스를 써볼 것 같아?"></textarea>
+        </label>
+
+        <button id="runButton" type="button">표본 추출 및 인터뷰 실행</button>
+        <p id="helperText" class="helper">AI 키가 없으면 규칙 기반 엔진으로 동작합니다. 키는 서버 `.env`에서만 읽습니다.</p>
+      </section>
+
+      <section class="dataset-panel">
+        <div>
+          <span class="eyebrow">Dataset</span>
+          <h2>nvidia/Nemotron-Personas-Korea</h2>
+          <p>한국 인구통계 기반 합성 페르소나 데이터에서 후보 row를 가져와 표본을 구성합니다.</p>
+        </div>
+        <div class="dataset-stats">
+          <div><strong>1M</strong><span>records</span></div>
+          <div><strong>7M</strong><span>persona fields</span></div>
+          <div><strong>5</strong><span>selected</span></div>
+        </div>
+      </section>
+
+      <section id="loadingPanel" class="loading-panel hidden">
+        <div class="spinner"></div>
+        <p id="loadingText">Nemotron 후보를 불러오는 중입니다.</p>
+      </section>
+
+      <section id="resultPanel" class="result-panel hidden">
+        <div class="result-head">
+          <div>
+            <span id="modeBadge" class="mode-badge">engine</span>
+            <h2 id="groupTitle">그룹 요약</h2>
+            <p id="groupSummary"></p>
+          </div>
+          <div class="score-box">
+            <strong id="positiveRatio">0%</strong>
+            <span>긍정 표본 비율</span>
+          </div>
+        </div>
+
+        <div class="insight-grid">
+          <article>
+            <h3>긍정 요인</h3>
+            <div id="drivers" class="chip-row"></div>
+          </article>
+          <article>
+            <h3>마찰 요인</h3>
+            <div id="frictions" class="chip-row"></div>
+          </article>
+          <article>
+            <h3>표본 상태</h3>
+            <p id="datasetStatus"></p>
+          </article>
+        </div>
+
+        <div id="interviews" class="interviews"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
+
