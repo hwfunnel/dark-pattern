@@ -22,9 +22,7 @@ const searchInput = document.getElementById("searchInput");
 const sortSelect = document.getElementById("sortSelect");
 const supabaseConfig = window.SUPABASE_CONFIG || {};
 const supabaseBucket = supabaseConfig.bucket || "audit-files";
-const supabaseClient = supabaseConfig.url && supabaseConfig.anonKey && window.supabase
-  ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey)
-  : null;
+const supabaseClient = supabaseConfig.url && supabaseConfig.anonKey ? createSupabaseRestClient(supabaseConfig) : null;
 
 let auditItems = [];
 let activeFilter = "all";
@@ -107,11 +105,7 @@ itemBody.addEventListener("change", async (event) => {
   renderCounts();
   try {
     if (supabaseClient) {
-      const { error } = await supabaseClient
-        .from("audit_items")
-        .update({ needs_review: checkbox.checked })
-        .eq("id", item.id);
-      if (error) throw error;
+      await supabaseClient.update("audit_items", { needs_review: checkbox.checked }, { id: item.id });
       if (activeFilter === "needsReview") renderItems(getVisibleItems());
       return;
     }
@@ -148,11 +142,7 @@ itemBody.addEventListener("click", async (event) => {
   button.textContent = "삭제 중";
   try {
     if (supabaseClient) {
-      const { error } = await supabaseClient
-        .from("audit_items")
-        .delete()
-        .eq("id", button.dataset.deleteItem);
-      if (error) throw error;
+      await supabaseClient.remove("audit_items", { id: button.dataset.deleteItem });
       await loadItems();
       return;
     }
@@ -189,6 +179,7 @@ async function uploadFiles(files) {
       await loadItems();
       return;
     }
+    if (isGitHubPages()) throw new Error("Supabase 설정 파일이 아직 반영되지 않았습니다. audit.js와 supabase-config.js를 GitHub에 다시 업로드한 뒤 새로고침해 주세요.");
     const reports = [];
     for (const file of files) {
       const response = await fetch("/api/audit-reports", {
@@ -210,16 +201,8 @@ async function uploadFiles(files) {
 
 async function loadItems() {
   if (supabaseClient) {
-    const { data: reports, error: reportError } = await supabaseClient
-      .from("audit_reports")
-      .select("*")
-      .order("created_at", { ascending: false });
-    if (reportError) throw reportError;
-    const { data: items, error: itemError } = await supabaseClient
-      .from("audit_items")
-      .select("*")
-      .order("uploaded_at", { ascending: false });
-    if (itemError) throw itemError;
+    const reports = await supabaseClient.select("audit_reports", { order: "created_at.desc" });
+    const items = await supabaseClient.select("audit_items", { order: "uploaded_at.desc" });
     auditItems = (items || []).map((item) => {
       const report = (reports || []).find((entry) => entry.id === item.report_id);
       return auditItemFromSupabaseRow(item, report);
@@ -267,10 +250,7 @@ async function createSupabaseAuditReport(file) {
   const createdAt = new Date().toISOString();
   const safeName = safeFileName(file.name || "attachment.bin");
   const filePath = `${reportId}/${safeName}`;
-  const { error: uploadError } = await supabaseClient.storage
-    .from(supabaseBucket)
-    .upload(filePath, file, { upsert: true, contentType: file.type || contentTypeFromName(safeName) });
-  if (uploadError) throw uploadError;
+  await supabaseClient.upload(supabaseBucket, filePath, file, file.type || contentTypeFromName(safeName));
   const fileUrl = publicSupabaseFileUrl(filePath);
   const savedFile = {
     name: safeName,
@@ -290,8 +270,7 @@ async function createSupabaseAuditReport(file) {
     created_at: createdAt,
     files: [savedFile]
   };
-  const { error: reportError } = await supabaseClient.from("audit_reports").insert(report);
-  if (reportError) throw reportError;
+  await supabaseClient.insert("audit_reports", report);
   const rows = extractedItems.length
     ? extractedItems.map((item, index) => supabaseItemRow({
       ...item,
@@ -314,8 +293,7 @@ async function createSupabaseAuditReport(file) {
       sourceFileName: safeName,
       uploadedAt: createdAt
     }, 0)];
-  const { error: itemError } = await supabaseClient.from("audit_items").insert(rows);
-  if (itemError) throw itemError;
+  await supabaseClient.insert("audit_items", rows);
 }
 
 async function extractAuditItemsFromBrowserFile(file, reportId) {
@@ -356,13 +334,7 @@ async function extractAuditItemsFromBrowserXlsx(arrayBuffer, file, reportId) {
     const imageBytes = entries.get(imageFile);
     const imageName = embeddedImageName(file.name, imageFile);
     const imagePath = `${reportId}/${imageName}`;
-    const { error } = await supabaseClient.storage
-      .from(supabaseBucket)
-      .upload(imagePath, new Blob([imageBytes], { type: contentTypeFromName(imageName) }), {
-        upsert: true,
-        contentType: contentTypeFromName(imageName)
-      });
-    if (error) throw error;
+    await supabaseClient.upload(supabaseBucket, imagePath, new Blob([imageBytes], { type: contentTypeFromName(imageName) }), contentTypeFromName(imageName));
     imageUrl = publicSupabaseFileUrl(imagePath);
   }
   return rows.slice(headerIndex + 1)
@@ -837,12 +809,104 @@ function contentTypeFromName(name) {
 }
 
 function publicSupabaseFileUrl(path) {
-  const { data } = supabaseClient.storage.from(supabaseBucket).getPublicUrl(path);
-  return data.publicUrl;
+  return supabaseClient.publicUrl(supabaseBucket, path);
 }
 
 function auditId() {
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
+}
+
+function createSupabaseRestClient(config) {
+  const baseUrl = String(config.url || "").replace(/\/rest\/v1\/?$/, "").replace(/\/$/, "");
+  const headers = {
+    apikey: config.anonKey,
+    Authorization: `Bearer ${config.anonKey}`
+  };
+  const jsonHeaders = {
+    ...headers,
+    "Content-Type": "application/json",
+    Prefer: "return=representation"
+  };
+
+  async function request(path, options = {}) {
+    const response = await fetch(`${baseUrl}${path}`, options);
+    const text = await response.text();
+    const payload = text ? safeJsonParse(text) : null;
+    if (!response.ok) {
+      const message = payload?.message || payload?.error || payload?.hint || `Supabase HTTP ${response.status}`;
+      throw new Error(message);
+    }
+    return payload;
+  }
+
+  function filterQuery(filters = {}) {
+    return Object.entries(filters)
+      .map(([key, value]) => `${encodeURIComponent(key)}=eq.${encodeURIComponent(value)}`)
+      .join("&");
+  }
+
+  return {
+    select(table, { order = "" } = {}) {
+      const params = new URLSearchParams({ select: "*" });
+      if (order) params.set("order", order);
+      return request(`/rest/v1/${table}?${params}`, { headers });
+    },
+    insert(table, rows) {
+      return request(`/rest/v1/${table}`, {
+        method: "POST",
+        headers: jsonHeaders,
+        body: JSON.stringify(rows)
+      });
+    },
+    update(table, updates, filters) {
+      return request(`/rest/v1/${table}?${filterQuery(filters)}`, {
+        method: "PATCH",
+        headers: jsonHeaders,
+        body: JSON.stringify(updates)
+      });
+    },
+    remove(table, filters) {
+      return request(`/rest/v1/${table}?${filterQuery(filters)}`, {
+        method: "DELETE",
+        headers: { ...headers, Prefer: "return=representation" }
+      });
+    },
+    async upload(bucket, path, body, contentTypeValue) {
+      const response = await fetch(`${baseUrl}/storage/v1/object/${bucket}/${encodePath(path)}`, {
+        method: "POST",
+        headers: {
+          ...headers,
+          "Content-Type": contentTypeValue || "application/octet-stream",
+          "x-upsert": "true"
+        },
+        body
+      });
+      if (!response.ok) {
+        const payload = await response.json().catch(() => ({}));
+        throw new Error(payload.message || payload.error || `Storage upload HTTP ${response.status}`);
+      }
+      return response.json().catch(() => ({}));
+    },
+    publicUrl(bucket, path) {
+      return `${baseUrl}/storage/v1/object/public/${bucket}/${encodePath(path)}`;
+    }
+  };
+}
+
+function encodePath(path) {
+  return String(path || "").split("/").map(encodeURIComponent).join("/");
+}
+
+function safeJsonParse(value) {
+  try {
+    return JSON.parse(value);
+  } catch {
+    return { message: value.slice(0, 180) };
+  }
+}
+
+function isGitHubPages() {
+  return location.hostname.endsWith("github.io");
 }
 
 function formatDate(value) {
