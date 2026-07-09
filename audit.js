@@ -248,13 +248,14 @@ function normalizeAssetUrl(url) {
 async function createSupabaseAuditReport(file) {
   const reportId = auditId();
   const createdAt = new Date().toISOString();
-  const safeName = safeFileName(file.name || "attachment.bin");
-  const filePath = `${reportId}/${safeName}`;
-  await supabaseClient.upload(supabaseBucket, filePath, file, file.type || contentTypeFromName(safeName));
+  const originalName = cleanFileName(file.name || "attachment.bin");
+  const storageName = storageFileName(originalName);
+  const filePath = `${reportId}/${storageName}`;
+  await supabaseClient.upload(supabaseBucket, filePath, file, file.type || contentTypeFromName(originalName));
   const fileUrl = publicSupabaseFileUrl(filePath);
   const savedFile = {
-    name: safeName,
-    type: file.type || contentTypeFromName(safeName),
+    name: originalName,
+    type: file.type || contentTypeFromName(originalName),
     size: file.size || 0,
     url: fileUrl
   };
@@ -262,7 +263,7 @@ async function createSupabaseAuditReport(file) {
   const firstItem = extractedItems[0] || {};
   const report = {
     id: reportId,
-    title: cleanText(firstItem.screenName || safeName.replace(/\.[^.]+$/, "") || "다크패턴 검사 보고서"),
+    title: cleanText(firstItem.screenName || originalName.replace(/\.[^.]+$/, "") || "다크패턴 검사 보고서"),
     risk_level: normalizeAuditRisk(firstItem.riskLevel || "보통"),
     description: "",
     owner: "",
@@ -277,20 +278,20 @@ async function createSupabaseAuditReport(file) {
       id: `${reportId}-${index + 1}`,
       reportId,
       imageUrl: item.imageUrl || fileUrl,
-      sourceFileName: safeName,
+      sourceFileName: originalName,
       uploadedAt: createdAt
     }, index))
     : [supabaseItemRow({
       id: `${reportId}-1`,
       reportId,
       imageUrl: /^image\//.test(savedFile.type) ? fileUrl : "",
-      screenName: safeName.replace(/\.[^.]+$/, ""),
+      screenName: originalName.replace(/\.[^.]+$/, ""),
       riskLevel: "보통",
       fix: "",
       reason: "",
       checklist: "",
       area: "",
-      sourceFileName: safeName,
+      sourceFileName: originalName,
       uploadedAt: createdAt
     }, 0)];
   await supabaseClient.insert("audit_items", rows);
@@ -613,9 +614,9 @@ function readUint32(bytes, offset) {
 
 function embeddedImageName(fileName, imageFile) {
   const ext = imageFile.match(/\.[^.]+$/)?.[0] || ".png";
-  const base = safeFileName(fileName).replace(/\.[^.]+$/, "");
+  const base = storageFileName(fileName).replace(/\.[^.]+$/, "");
   const imageBase = imageFile.split("/").pop().replace(/\.[^.]+$/, "");
-  return safeFileName(`${base}-${imageBase}${ext}`);
+  return storageFileName(`${base}-${imageBase}${ext}`);
 }
 
 function stripHtml(value) {
@@ -796,6 +797,23 @@ function safeFileName(value) {
   const base = filename.slice(0, ext ? -ext.length : filename.length)
     .replace(/[^\p{L}\p{N}._-]+/gu, "-")
     .replace(/^-+|-+$/g, "")
+    .slice(0, 80) || "attachment";
+  return `${base}${ext}`;
+}
+
+function cleanFileName(value) {
+  return safeFileName(value || "attachment.bin");
+}
+
+function storageFileName(value) {
+  const filename = String(value || "attachment.bin").split("/").pop();
+  const ext = filename.match(/\.[^.]+$/)?.[0]?.slice(0, 12).toLowerCase() || "";
+  const base = filename.slice(0, ext ? -ext.length : filename.length)
+    .normalize("NFKD")
+    .replace(/[^\x00-\x7F]/g, "")
+    .replace(/[^A-Za-z0-9._-]+/g, "-")
+    .replace(/[_-]+$/g, "")
+    .replace(/^[_-]+/g, "")
     .slice(0, 80) || "attachment";
   return `${base}${ext}`;
 }
