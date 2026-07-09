@@ -20,6 +20,11 @@ const tableTitle = document.querySelector(".table-top h2");
 const filterButtons = [...document.querySelectorAll("[data-filter]")];
 const searchInput = document.getElementById("searchInput");
 const sortSelect = document.getElementById("sortSelect");
+const supabaseConfig = window.SUPABASE_CONFIG || {};
+const supabaseBucket = supabaseConfig.bucket || "audit-files";
+const supabaseClient = supabaseConfig.url && supabaseConfig.anonKey && window.supabase
+  ? window.supabase.createClient(supabaseConfig.url, supabaseConfig.anonKey)
+  : null;
 
 let auditItems = [];
 let activeFilter = "all";
@@ -101,6 +106,15 @@ itemBody.addEventListener("change", async (event) => {
   item.needsReview = checkbox.checked;
   renderCounts();
   try {
+    if (supabaseClient) {
+      const { error } = await supabaseClient
+        .from("audit_items")
+        .update({ needs_review: checkbox.checked })
+        .eq("id", item.id);
+      if (error) throw error;
+      if (activeFilter === "needsReview") renderItems(getVisibleItems());
+      return;
+    }
     const response = await fetch(`/api/audit-items/${encodeURIComponent(item.id)}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -133,6 +147,15 @@ itemBody.addEventListener("click", async (event) => {
   button.disabled = true;
   button.textContent = "삭제 중";
   try {
+    if (supabaseClient) {
+      const { error } = await supabaseClient
+        .from("audit_items")
+        .delete()
+        .eq("id", button.dataset.deleteItem);
+      if (error) throw error;
+      await loadItems();
+      return;
+    }
     const response = await fetch(`/api/audit-items/${encodeURIComponent(button.dataset.deleteItem)}`, {
       method: "DELETE"
     });
@@ -159,6 +182,13 @@ async function uploadFiles(files) {
   if (!files.length) return;
   setStatus(`${files.length}개 파일을 업로드하고 데이터를 매칭하는 중입니다.`);
   try {
+    if (supabaseClient) {
+      for (const file of files) await createSupabaseAuditReport(file);
+      fileInput.value = "";
+      uploadModal.classList.add("hidden");
+      await loadItems();
+      return;
+    }
     const reports = [];
     for (const file of files) {
       const response = await fetch("/api/audit-reports", {
@@ -179,17 +209,37 @@ async function uploadFiles(files) {
 }
 
 async function loadItems() {
-  let data;
+  if (supabaseClient) {
+    const { data: reports, error: reportError } = await supabaseClient
+      .from("audit_reports")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if (reportError) throw reportError;
+    const { data: items, error: itemError } = await supabaseClient
+      .from("audit_items")
+      .select("*")
+      .order("uploaded_at", { ascending: false });
+    if (itemError) throw itemError;
+    auditItems = (items || []).map((item) => {
+      const report = (reports || []).find((entry) => entry.id === item.report_id);
+      return auditItemFromSupabaseRow(item, report);
+    });
+    setStatus("Supabase에 저장된 최신 데이터를 불러왔습니다.");
+    renderCounts();
+    renderItems(getVisibleItems());
+    return;
+  }
   try {
     const response = await fetch("/api/audit-reports");
     if (!response.ok) throw new Error("API unavailable");
-    data = await response.json();
-  } catch (error) {
+    const data = await response.json();
+    auditItems = data.items || [];
+  } catch {
     const response = await fetch("audit-data/reports.json");
-    data = await response.json();
-    setStatus("공유용 정적 페이지입니다. 업로드/삭제/확인필요 저장은 비활성이고 엑셀 Export는 가능합니다.");
+    const data = await response.json();
+    auditItems = normalizeAuditItems(data);
+    setStatus("Supabase 설정 전에는 현재 업로드된 정적 데이터만 표시됩니다.");
   }
-  auditItems = normalizeAuditItems(data);
   renderCounts();
   renderItems(getVisibleItems());
 }
@@ -210,6 +260,151 @@ function normalizeAssetUrl(url) {
   if (!url) return "";
   if (/^https?:/i.test(url) || url.startsWith("data:")) return url;
   return url.replace(/^\/audit-files\//, "audit-data/uploads/").replace(/^\//, "");
+}
+
+async function createSupabaseAuditReport(file) {
+  const reportId = auditId();
+  const createdAt = new Date().toISOString();
+  const safeName = safeFileName(file.name || "attachment.bin");
+  const filePath = `${reportId}/${safeName}`;
+  const { error: uploadError } = await supabaseClient.storage
+    .from(supabaseBucket)
+    .upload(filePath, file, { upsert: true, contentType: file.type || contentTypeFromName(safeName) });
+  if (uploadError) throw uploadError;
+  const fileUrl = publicSupabaseFileUrl(filePath);
+  const savedFile = {
+    name: safeName,
+    type: file.type || contentTypeFromName(safeName),
+    size: file.size || 0,
+    url: fileUrl
+  };
+  const extractedItems = await extractAuditItemsFromBrowserFile(file, reportId);
+  const firstItem = extractedItems[0] || {};
+  const report = {
+    id: reportId,
+    title: cleanText(firstItem.screenName || safeName.replace(/\.[^.]+$/, "") || "다크패턴 검사 보고서"),
+    risk_level: normalizeAuditRisk(firstItem.riskLevel || "보통"),
+    description: "",
+    owner: "",
+    status: "검토 전",
+    created_at: createdAt,
+    files: [savedFile]
+  };
+  const { error: reportError } = await supabaseClient.from("audit_reports").insert(report);
+  if (reportError) throw reportError;
+  const rows = extractedItems.length
+    ? extractedItems.map((item, index) => supabaseItemRow({
+      ...item,
+      id: `${reportId}-${index + 1}`,
+      reportId,
+      imageUrl: item.imageUrl || fileUrl,
+      sourceFileName: safeName,
+      uploadedAt: createdAt
+    }, index))
+    : [supabaseItemRow({
+      id: `${reportId}-1`,
+      reportId,
+      imageUrl: /^image\//.test(savedFile.type) ? fileUrl : "",
+      screenName: safeName.replace(/\.[^.]+$/, ""),
+      riskLevel: "보통",
+      fix: "",
+      reason: "",
+      checklist: "",
+      area: "",
+      sourceFileName: safeName,
+      uploadedAt: createdAt
+    }, 0)];
+  const { error: itemError } = await supabaseClient.from("audit_items").insert(rows);
+  if (itemError) throw itemError;
+}
+
+async function extractAuditItemsFromBrowserFile(file, reportId) {
+  try {
+    if (/\.xlsx$/i.test(file.name)) return await extractAuditItemsFromBrowserXlsx(await file.arrayBuffer(), file, reportId);
+    if (/\.html?$/i.test(file.name)) return extractAuditItemsFromHtml(await file.text(), file);
+    if (/^image\//.test(file.type)) {
+      return [{
+        imageUrl: "",
+        screenName: file.name.replace(/\.[^.]+$/, ""),
+        riskLevel: "보통",
+        fix: "",
+        reason: "",
+        checklist: "",
+        area: "",
+        sourceFileName: file.name
+      }];
+    }
+  } catch (error) {
+    setStatus(`파일 파싱 실패: ${error.message}`);
+  }
+  return [];
+}
+
+async function extractAuditItemsFromBrowserXlsx(arrayBuffer, file, reportId) {
+  const entries = await unzipEntries(arrayBuffer);
+  const sheetXml = await entryText(entries.get("xl/worksheets/sheet1.xml"));
+  if (!sheetXml) return [];
+  const sharedStrings = await parseSharedStrings(entries.get("xl/sharedStrings.xml"));
+  const rows = parseXlsxRows(sheetXml, sharedStrings);
+  if (!rows.length) return [];
+  const headerIndex = rows.findIndex((row) => row.some((cell) => /위험도/.test(cell)) && row.some((cell) => /보완점/.test(cell)));
+  if (headerIndex === -1) return [];
+  const headers = rows[headerIndex].map((cell) => cell.trim());
+  const imageFile = [...entries.keys()].find((name) => /^xl\/media\/image\d+\.(png|jpg|jpeg)$/i.test(name));
+  let imageUrl = "";
+  if (imageFile) {
+    const imageBytes = entries.get(imageFile);
+    const imageName = embeddedImageName(file.name, imageFile);
+    const imagePath = `${reportId}/${imageName}`;
+    const { error } = await supabaseClient.storage
+      .from(supabaseBucket)
+      .upload(imagePath, new Blob([imageBytes], { type: contentTypeFromName(imageName) }), {
+        upsert: true,
+        contentType: contentTypeFromName(imageName)
+      });
+    if (error) throw error;
+    imageUrl = publicSupabaseFileUrl(imagePath);
+  }
+  return rows.slice(headerIndex + 1)
+    .filter((row) => row.some(Boolean))
+    .map((row) => ({ ...auditItemFromCells(headers, row, imageUrl), sourceFileName: file.name }));
+}
+
+function auditItemFromSupabaseRow(item, report = {}) {
+  return {
+    id: item.id,
+    reportId: item.report_id,
+    imageUrl: item.image_url || "",
+    screenName: item.screen_name || "",
+    riskLevel: item.risk_level || "보통",
+    fix: item.fix || "",
+    reason: item.reason || "",
+    checklist: item.checklist || "",
+    area: item.area || "",
+    sourceFileName: item.source_file_name || "",
+    needsReview: Boolean(item.needs_review),
+    uploadedAt: item.uploaded_at || "",
+    reportTitle: report?.title || "",
+    files: Array.isArray(report?.files) ? report.files : []
+  };
+}
+
+function supabaseItemRow(item, index) {
+  return {
+    id: item.id,
+    report_id: item.reportId,
+    sort_index: index,
+    image_url: item.imageUrl || "",
+    screen_name: cleanText(item.screenName || ""),
+    risk_level: normalizeAuditRisk(item.riskLevel || "보통"),
+    fix: cleanText(item.fix || ""),
+    reason: cleanText(item.reason || ""),
+    checklist: cleanText(item.checklist || ""),
+    area: cleanText(item.area || ""),
+    source_file_name: cleanText(item.sourceFileName || ""),
+    needs_review: Boolean(item.needsReview),
+    uploaded_at: item.uploadedAt
+  };
 }
 
 function renderItems(items) {
@@ -318,10 +513,9 @@ function reviewCheckbox(item) {
 
 function imageCell(url) {
   if (!url) return `<span class="image-link">이미지 없음</span>`;
-  const normalizedUrl = normalizeAssetUrl(url);
-  const absoluteUrl = new URL(normalizedUrl, location.href).href;
+  const absoluteUrl = new URL(url, location.href).href;
   if (/\.(png|jpg|jpeg)$/i.test(url) || /\/image\d+\.(png|jpg|jpeg)$/i.test(url)) {
-    return `<a href="${escapeHtml(absoluteUrl)}" data-image-preview="${escapeHtml(absoluteUrl)}"><img class="thumb" src="${escapeHtml(normalizedUrl)}" alt="화면 이미지"></a>`;
+    return `<a href="${escapeHtml(absoluteUrl)}" data-image-preview="${escapeHtml(absoluteUrl)}"><img class="thumb" src="${escapeHtml(url)}" alt="화면 이미지"></a>`;
   }
   return `<a class="image-link" href="${escapeHtml(absoluteUrl)}" target="_blank" rel="noreferrer">보기</a>`;
 }
@@ -349,11 +543,126 @@ function fileToPayload(file) {
   });
 }
 
+function extractAuditItemsFromHtml(htmlText, file) {
+  const rows = [...htmlText.matchAll(/<tr[\s\S]*?<\/tr>/gi)]
+    .map((match) => [...match[0].matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((cell) => stripHtml(cell[1])));
+  const headerIndex = rows.findIndex((row) => row.some((cell) => /위험도/.test(cell)) && row.some((cell) => /보완점/.test(cell)));
+  if (headerIndex === -1) return [];
+  const headers = rows[headerIndex];
+  return rows.slice(headerIndex + 1)
+    .filter((row) => row.some(Boolean))
+    .map((row) => ({ ...auditItemFromCells(headers, row, ""), sourceFileName: file.name }));
+}
+
+function auditItemFromCells(headers, row, fallbackImageUrl) {
+  const value = (namePattern) => {
+    const index = headers.findIndex((header) => namePattern.test(header));
+    return index >= 0 ? cleanText(row[index] || "") : "";
+  };
+  const imageValue = value(/이미지|화면 이미지|URL/i);
+  const validImageUrl = /^\/|^https?:|^data:image/.test(imageValue) && !/^embedded:/.test(imageValue) ? imageValue : fallbackImageUrl;
+  return {
+    imageUrl: validImageUrl,
+    screenName: value(/분석 화면|화면명|프레임/i),
+    riskLevel: normalizeAuditRisk(value(/위험도|위험수준/i)),
+    fix: value(/보완점|개선안/i),
+    reason: value(/개선 이유|사유/i),
+    checklist: value(/체크리스트|근거/i),
+    area: value(/개선영역|영역/i)
+  };
+}
+
+async function unzipEntries(arrayBuffer) {
+  const bytes = new Uint8Array(arrayBuffer);
+  const entries = new Map();
+  const decoder = new TextDecoder();
+  let offset = 0;
+  while (offset < bytes.length - 4) {
+    if (readUint32(bytes, offset) !== 0x04034b50) break;
+    const method = readUint16(bytes, offset + 8);
+    const compressedSize = readUint32(bytes, offset + 18);
+    const uncompressedSize = readUint32(bytes, offset + 22);
+    const nameLength = readUint16(bytes, offset + 26);
+    const extraLength = readUint16(bytes, offset + 28);
+    const name = decoder.decode(bytes.slice(offset + 30, offset + 30 + nameLength));
+    const dataStart = offset + 30 + nameLength + extraLength;
+    const compressed = bytes.slice(dataStart, dataStart + compressedSize);
+    let data = new Uint8Array();
+    if (method === 0) data = compressed;
+    if (method === 8) data = await inflateRaw(compressed);
+    if (data.length || uncompressedSize === 0) entries.set(name, data);
+    offset = dataStart + compressedSize;
+  }
+  return entries;
+}
+
+async function inflateRaw(bytes) {
+  if (!("DecompressionStream" in window)) throw new Error("이 브라우저는 XLSX 압축 해제를 지원하지 않습니다.");
+  const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return new Uint8Array(await new Response(stream).arrayBuffer());
+}
+
+function parseXlsxRows(xml, sharedStrings = []) {
+  return [...xml.matchAll(/<row[^>]*>([\s\S]*?)<\/row>/g)].map((rowMatch) =>
+    [...rowMatch[1].matchAll(/<c([^>]*)>([\s\S]*?)<\/c>/g)].reduce((cells, cellMatch) => {
+      const attrs = cellMatch[1] || "";
+      const body = cellMatch[2] || "";
+      const ref = attrs.match(/\br="([A-Z]+)\d+"/);
+      const col = ref ? columnIndex(ref[1]) : cells.length;
+      const isShared = /\bt="s"/.test(attrs);
+      const valueMatch = body.match(/<v[^>]*>([\s\S]*?)<\/v>/);
+      const inlineText = [...body.matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map((match) => xmlUnescape(match[1])).join("");
+      const value = isShared && valueMatch ? sharedStrings[Number(valueMatch[1])] || "" : inlineText || xmlUnescape(valueMatch?.[1] || "");
+      cells[col] = cleanText(value);
+      return cells;
+    }, [])
+  );
+}
+
+async function parseSharedStrings(entry) {
+  const xml = await entryText(entry);
+  if (!xml) return [];
+  return [...xml.matchAll(/<si[^>]*>([\s\S]*?)<\/si>/g)]
+    .map((match) => [...match[1].matchAll(/<t[^>]*>([\s\S]*?)<\/t>/g)].map((item) => xmlUnescape(item[1])).join(""));
+}
+
+async function entryText(entry) {
+  if (!entry) return "";
+  return new TextDecoder().decode(entry);
+}
+
+function readUint16(bytes, offset) {
+  return bytes[offset] | (bytes[offset + 1] << 8);
+}
+
+function readUint32(bytes, offset) {
+  return (bytes[offset] | (bytes[offset + 1] << 8) | (bytes[offset + 2] << 16) | (bytes[offset + 3] << 24)) >>> 0;
+}
+
+function embeddedImageName(fileName, imageFile) {
+  const ext = imageFile.match(/\.[^.]+$/)?.[0] || ".png";
+  const base = safeFileName(fileName).replace(/\.[^.]+$/, "");
+  const imageBase = imageFile.split("/").pop().replace(/\.[^.]+$/, "");
+  return safeFileName(`${base}-${imageBase}${ext}`);
+}
+
+function stripHtml(value) {
+  return cleanText(String(value || "")
+    .replace(/<br\s*\/?>/gi, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'"));
+}
+
 function createExportXlsx(items) {
   const rows = [
     ["이미지 URL", "분석 화면", "위험도", "확인필요", "보완점", "개선 이유", "개선체크리스트(법률상 위반 근거)", "업로드일자"],
     ...items.map((item) => [
-      item.imageUrl ? new URL(normalizeAssetUrl(item.imageUrl), location.href).href : "",
+      item.imageUrl ? new URL(item.imageUrl, location.href).href : "",
       item.screenName || "",
       item.riskLevel || "",
       item.needsReview ? "Y" : "",
@@ -485,6 +794,10 @@ function columnName(index) {
   return name;
 }
 
+function columnIndex(name) {
+  return String(name || "").split("").reduce((sum, char) => sum * 26 + char.charCodeAt(0) - 64, 0) - 1;
+}
+
 function xmlEscape(value) {
   return String(value || "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&apos;");
 }
@@ -493,6 +806,43 @@ function riskClass(value) {
   if (value === "위험") return "risk-high";
   if (value === "낮음") return "risk-low";
   return "risk-medium";
+}
+
+function normalizeAuditRisk(value) {
+  if (/위험|높음|high/i.test(String(value))) return "위험";
+  if (/낮음|low/i.test(String(value))) return "낮음";
+  return "보통";
+}
+
+function cleanText(value) {
+  return String(value || "").replace(/\s+/g, " ").trim();
+}
+
+function safeFileName(value) {
+  const filename = String(value || "attachment.bin").split("/").pop();
+  const ext = filename.match(/\.[^.]+$/)?.[0]?.slice(0, 12) || "";
+  const base = filename.slice(0, ext ? -ext.length : filename.length)
+    .replace(/[^\p{L}\p{N}._-]+/gu, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80) || "attachment";
+  return `${base}${ext}`;
+}
+
+function contentTypeFromName(name) {
+  if (/\.png$/i.test(name)) return "image/png";
+  if (/\.jpe?g$/i.test(name)) return "image/jpeg";
+  if (/\.xlsx$/i.test(name)) return "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+  if (/\.html?$/i.test(name)) return "text/html";
+  return "application/octet-stream";
+}
+
+function publicSupabaseFileUrl(path) {
+  const { data } = supabaseClient.storage.from(supabaseBucket).getPublicUrl(path);
+  return data.publicUrl;
+}
+
+function auditId() {
+  return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 8)}`;
 }
 
 function formatDate(value) {
