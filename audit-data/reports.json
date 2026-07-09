@@ -1,0 +1,752 @@
+[
+  {
+    "id": "mrbq7xlh-z7ia0o",
+    "title": "260623_STEP6_청약내용확인(월납)",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:58:21.274Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP6_청약내용확인-월납.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 567247,
+        "url": "/audit-files/mrbq7xlh-z7ia0o/260708_260623_STEP6_%E1%84%8E%E1%85%A5%E1%86%BC%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%82%E1%85%A2%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbq7xlh-z7ia0o-1",
+        "reportId": "mrbq7xlh-z7ia0o",
+        "imageUrl": "/audit-files/mrbq7xlh-z7ia0o/260708_260623_STEP6_%E1%84%8E%E1%85%A5%E1%86%BC%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%82%E1%85%A2%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP6_청약내용확인(월납)",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP6_청약내용확인-월납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:58:21.274Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbq7xkz-90uwyp",
+    "title": "260623_STEP6_알릴사항",
+    "riskLevel": "위험",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:58:21.254Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP6_알릴사항.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 909561,
+        "url": "/audit-files/mrbq7xkz-90uwyp/260708_260623_STEP6_%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AF%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbq7xkz-90uwyp-1",
+        "reportId": "mrbq7xkz-90uwyp",
+        "imageUrl": "/audit-files/mrbq7xkz-90uwyp/260708_260623_STEP6_%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AF%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC-image1.png",
+        "screenName": "260623_STEP6_알릴사항",
+        "riskLevel": "위험",
+        "fix": "모든 중요 고지사항을 하나의 스크롤 가능한 화면에 통합하여 제공하고, 최종 동의는 한 번에 명확하게 받도록 개선해야 합니다. 각 섹션별 '확인' 버튼은 '다음 내용 보기' 등으로 변경하여 단순 진행을 유도하고, 최종 동의 시에는 전체 내용을 다시 요약하거나 핵심 내용을 강조하는 단계를 추가하는 것을 고려해야 합니다.",
+        "reason": "방대한 중요 정보가 세 개의 독립적인 박스로 나뉘어 있고, 각 박스마다 '확인' 버튼을 눌러야 다음 단계로 진행되는 구조는 사용자가 모든 정보를 충분히 검토하고 이해하기 어렵게 만듭니다. 이는 형식적인 동의를 유도하여 중요 고지 의무 이행을 저해할 수 있습니다.",
+        "checklist": "공정거래위원회 온라인 다크패턴 자율관리 가이드라인 (정보 은폐, 강요된 행동), 금융소비자 보호에 관한 법률 (설명의무, 중요사항 고지)",
+        "area": "정보 제공 방식",
+        "sourceFileName": "260708_260623_STEP6_알릴사항.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:58:21.254Z"
+      },
+      {
+        "id": "mrbq7xkz-90uwyp-2",
+        "reportId": "mrbq7xkz-90uwyp",
+        "imageUrl": "/audit-files/mrbq7xkz-90uwyp/260708_260623_STEP6_%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AF%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC-image1.png",
+        "screenName": "260623_STEP6_알릴사항",
+        "riskLevel": "보통",
+        "fix": "핵심 불이익 정보는 별도의 강조 표시(예: 색상, 굵은 글씨, 아이콘)를 사용하거나, 요약 박스를 통해 가독성을 높여 사용자가 쉽게 인지할 수 있도록 시각적 계층 구조를 강화해야 합니다.",
+        "reason": "보험금 지급 제한, 중도 해지 시 불이익 등 사용자의 의사결정에 매우 중요한 영향을 미치는 정보들이 일반 텍스트와 동일한 방식으로 나열되어 있어, 사용자가 핵심 내용을 쉽게 파악하고 인지하기 어렵습니다.",
+        "checklist": "금융소비자 보호에 관한 법률 (중요사항 고지), 공정거래위원회 온라인 다크패턴 자율관리 가이드라인 (정보 은폐)",
+        "area": "핵심 정보 가독성",
+        "sourceFileName": "260708_260623_STEP6_알릴사항.xlsx",
+        "needsReview": true,
+        "uploadedAt": "2026-07-08T06:58:21.254Z",
+        "reportTitle": "260623_STEP6_알릴사항",
+        "files": [
+          {
+            "name": "260708_260623_STEP6_알릴사항.xlsx",
+            "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "size": 909561,
+            "url": "/audit-files/mrbq7xkz-90uwyp/260708_260623_STEP6_%E1%84%8B%E1%85%A1%E1%86%AF%E1%84%85%E1%85%B5%E1%86%AF%E1%84%89%E1%85%A1%E1%84%92%E1%85%A1%E1%86%BC.xlsx"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "mrbq7xjt-xqjmqz",
+    "title": "260623_STEP7_결제",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:58:21.214Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP7_결제.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 391128,
+        "url": "/audit-files/mrbq7xjt-xqjmqz/260708_260623_STEP7_%E1%84%80%E1%85%A7%E1%86%AF%E1%84%8C%E1%85%A6.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbq7xjt-xqjmqz-1",
+        "reportId": "mrbq7xjt-xqjmqz",
+        "imageUrl": "/audit-files/mrbq7xjt-xqjmqz/260708_260623_STEP7_%E1%84%80%E1%85%A7%E1%86%AF%E1%84%8C%E1%85%A6-image1.png",
+        "screenName": "260623_STEP7_결제",
+        "riskLevel": "보통",
+        "fix": "가입 완료 메시지와 가입 내용 요약을 우선적으로 명확하게 보여주고, 추가 상품 추천은 별도의 섹션으로 분리하거나, '가입 완료 후 다른 고객들이 많이 찾는 상품'과 같이 명확한 제목을 사용하여 사용자가 명확히 인지할 수 있는 시점과 방식으로 제공해야 합니다.",
+        "reason": "사용자가 보험 가입 완료를 확인하는 중요한 시점에, 완료 메시지 바로 아래에 다른 상품 추천이 노출되어 사용자의 주된 목표 달성 확인을 방해하고 불필요한 추가 탐색을 유도할 수 있습니다.",
+        "checklist": "공정거래위원회 온라인 다크패턴 자율관리 가이드라인 - 2. 숨은 정보/선택 유도",
+        "area": "가입 완료 화면 구성",
+        "sourceFileName": "260708_260623_STEP7_결제.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:58:21.214Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbpk8v1-56awk9",
+    "title": "260623_STEP6_청약내용확인(월납)",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:39:56.131Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP6_청약내용확인-월납.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 567247,
+        "url": "/audit-files/mrbpk8v1-56awk9/260708_260623_STEP6_%E1%84%8E%E1%85%A5%E1%86%BC%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%82%E1%85%A2%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbpk8v1-56awk9-1",
+        "reportId": "mrbpk8v1-56awk9",
+        "imageUrl": "/audit-files/mrbpk8v1-56awk9/260708_260623_STEP6_%E1%84%8E%E1%85%A5%E1%86%BC%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%82%E1%85%A2%E1%84%8B%E1%85%AD%E1%86%BC%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP6_청약내용확인(월납)",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP6_청약내용확인-월납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:39:56.131Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbpk8uk-usa34u",
+    "title": "260623_STEP5_소유권확인,계약자/피보험자 정보",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:39:56.112Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP5_소유권확인-계약자_피보험자_정보.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 334073,
+        "url": "/audit-files/mrbpk8uk-usa34u/260708_260623_STEP5_%E1%84%89%E1%85%A9%E1%84%8B%E1%85%B2%E1%84%80%E1%85%AF%E1%86%AB%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB-%E1%84%80%E1%85%A8%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%8C%E1%85%A1_%E1%84%91%E1%85%B5%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A1_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%87%E1%85%A9.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbpk8uk-usa34u-1",
+        "reportId": "mrbpk8uk-usa34u",
+        "imageUrl": "/audit-files/mrbpk8uk-usa34u/260708_260623_STEP5_%E1%84%89%E1%85%A9%E1%84%8B%E1%85%B2%E1%84%80%E1%85%AF%E1%86%AB%E1%84%92%E1%85%AA%E1%86%A8%E1%84%8B%E1%85%B5%E1%86%AB-%E1%84%80%E1%85%A8%E1%84%8B%E1%85%A3%E1%86%A8%E1%84%8C%E1%85%A1_%E1%84%91%E1%85%B5%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%8C%E1%85%A1_%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%87%E1%85%A9-image1.png",
+        "screenName": "260623_STEP5_소유권확인,계약자/피보험자 정보",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP5_소유권확인-계약자_피보험자_정보.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:39:56.112Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbpk8u3-t5ylpd",
+    "title": "260623_STEP4_할인특약/추가정보(월납)",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:39:56.097Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP4_할인특약_추가정보-월납.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 329821,
+        "url": "/audit-files/mrbpk8u3-t5ylpd/260708_260623_STEP4_%E1%84%92%E1%85%A1%E1%86%AF%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%E1%86%A8%E1%84%8B%E1%85%A3%E1%86%A8_%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%87%E1%85%A9-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbpk8u3-t5ylpd-1",
+        "reportId": "mrbpk8u3-t5ylpd",
+        "imageUrl": "/audit-files/mrbpk8u3-t5ylpd/260708_260623_STEP4_%E1%84%92%E1%85%A1%E1%86%AF%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%90%E1%85%B3%E1%86%A8%E1%84%8B%E1%85%A3%E1%86%A8_%E1%84%8E%E1%85%AE%E1%84%80%E1%85%A1%E1%84%8C%E1%85%A5%E1%86%BC%E1%84%87%E1%85%A9-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP4_할인특약/추가정보(월납)",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP4_할인특약_추가정보-월납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:39:56.097Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbpk8tl-p6qus0",
+    "title": "260623_STEP4_사진등록(월납)",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:39:56.078Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP4_사진등록-월납.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 714924,
+        "url": "/audit-files/mrbpk8tl-p6qus0/260708_260623_STEP4_%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%83%E1%85%B3%E1%86%BC%E1%84%85%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbpk8tl-p6qus0-1",
+        "reportId": "mrbpk8tl-p6qus0",
+        "imageUrl": "/audit-files/mrbpk8tl-p6qus0/260708_260623_STEP4_%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%83%E1%85%B3%E1%86%BC%E1%84%85%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP4_사진등록(월납)",
+        "riskLevel": "보통",
+        "fix": "'나중에 등록' 선택 시, 보험 시작일로부터 15일 이내에 등록해야 하는 점과 미등록 시 발생할 수 있는 보험료 정산 방식 변경 또는 할인 특약 취소 가능성에 대해 명확하고 이해하기 쉬운 문구로 안내하여 사용자의 선택권을 보장해야 합니다.",
+        "reason": "현재 화면에서는 '지금 등록' 버튼이 더 두드러져 보이며, '나중에 등록' 시 발생할 수 있는 조건이나 영향에 대한 안내가 부족하여 사용자가 사진 등록을 필수라고 오해할 가능성이 있습니다.",
+        "checklist": "소비자 선택권 보장 및 중요 정보 고지",
+        "area": "사진 등록 선택 안내",
+        "sourceFileName": "260708_260623_STEP4_사진등록-월납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:39:56.078Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbpk8sz-r15svo",
+    "title": "260623_STEP4_사진등록(연납)",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:39:56.057Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP4_사진등록-연납.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 796698,
+        "url": "/audit-files/mrbpk8sz-r15svo/260708_260623_STEP4_%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%83%E1%85%B3%E1%86%BC%E1%84%85%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbpk8sz-r15svo-1",
+        "reportId": "mrbpk8sz-r15svo",
+        "imageUrl": "/audit-files/mrbpk8sz-r15svo/260708_260623_STEP4_%E1%84%89%E1%85%A1%E1%84%8C%E1%85%B5%E1%86%AB%E1%84%83%E1%85%B3%E1%86%BC%E1%84%85%E1%85%A9%E1%86%A8-%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP4_사진등록(연납)",
+        "riskLevel": "보통",
+        "fix": "'나중에 등록' 선택 시, 팝업 또는 명확한 강조 문구를 통해 '사진 미등록 시 ECO 마일리지 할인 특약이 적용되지 않으며, 보험 시작일로부터 15일 이내에 등록하지 않으면 특약이 취소될 수 있습니다.'와 같이 안내하여 사용자가 불이익을 명확히 인지하도록 합니다.",
+        "reason": "사용자가 '나중에 등록'을 선택할 경우, 사진 미등록으로 인한 할인 혜택 불가 및 특약 취소 가능성에 대한 정보가 충분히 부각되지 않아 사용자가 이를 간과하고 잘못된 선택을 할 위험이 있습니다.",
+        "checklist": "소비자에게 불리한 정보는 명확하게 고지해야 함 (전자상거래법, 다크패턴 가이드라인)",
+        "area": "사진 미등록 시 혜택 안내",
+        "sourceFileName": "260708_260623_STEP4_사진등록-연납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:39:56.057Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbpk8sg-qiyka9",
+    "title": "260623_STEP3_티맵점수연동",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:39:56.035Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP3_티맵점수연동.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 82921,
+        "url": "/audit-files/mrbpk8sg-qiyka9/260708_260623_STEP3_%E1%84%90%E1%85%B5%E1%84%86%E1%85%A2%E1%86%B8%E1%84%8C%E1%85%A5%E1%86%B7%E1%84%89%E1%85%AE%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%83%E1%85%A9%E1%86%BC.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbpk8sg-qiyka9-1",
+        "reportId": "mrbpk8sg-qiyka9",
+        "imageUrl": "/audit-files/mrbpk8sg-qiyka9/260708_260623_STEP3_%E1%84%90%E1%85%B5%E1%84%86%E1%85%A2%E1%86%B8%E1%84%8C%E1%85%A5%E1%86%B7%E1%84%89%E1%85%AE%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%83%E1%85%A9%E1%86%BC-image1.png",
+        "screenName": "260623_STEP3_티맵점수연동",
+        "riskLevel": "보통",
+        "fix": "'다음에 할게요' 선택 시 또는 화면 하단 유의사항에 '계약 체결 후에도 마이페이지 등에서 운전점수를 등록하시면 소급하여 할인이 적용됩니다'와 같은 안내 문구를 명시하십시오.",
+        "reason": "계약 후에도 TMAP 점수 등록이 가능하다는 사실을 알리지 않아, 사용자가 지금 당장 인증을 완료해야만 할인을 받을 수 있는 것으로 오인할 우려가 있습니다.",
+        "checklist": "금융소비자보호법 제19조 설명의무 및 전자상거래법 제13조 중요 정보 고지",
+        "area": "안내 문구 영역",
+        "sourceFileName": "260708_260623_STEP3_티맵점수연동.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:39:56.035Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbpk8rp-kztdvl",
+    "title": "260623_STEP3_주행거리, 보험기간 설정",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:39:56.011Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP3_주행거리-_보험기간_설정.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 539313,
+        "url": "/audit-files/mrbpk8rp-kztdvl/260708_260623_STEP3_%E1%84%8C%E1%85%AE%E1%84%92%E1%85%A2%E1%86%BC%E1%84%80%E1%85%A5%E1%84%85%E1%85%B5-_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%80%E1%85%B5%E1%84%80%E1%85%A1%E1%86%AB_%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbpk8rp-kztdvl-1",
+        "reportId": "mrbpk8rp-kztdvl",
+        "imageUrl": "/audit-files/mrbpk8rp-kztdvl/260708_260623_STEP3_%E1%84%8C%E1%85%AE%E1%84%92%E1%85%A2%E1%86%BC%E1%84%80%E1%85%A5%E1%84%85%E1%85%B5-_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%80%E1%85%B5%E1%84%80%E1%85%A1%E1%86%AB_%E1%84%89%E1%85%A5%E1%86%AF%E1%84%8C%E1%85%A5%E1%86%BC-image1.png",
+        "screenName": "260623_STEP3_주행거리, 보험기간 설정",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP3_주행거리-_보험기간_설정.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:39:56.011Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5hd-vb77mk",
+    "title": "260623_STEP3_보험료산출(월납)",
+    "riskLevel": "위험",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.541Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP3_보험료산출-월납.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 654392,
+        "url": "/audit-files/mrbod5hd-vb77mk/260708_260623_STEP3_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%85%E1%85%AD%E1%84%89%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%AF-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5hd-vb77mk-1",
+        "reportId": "mrbod5hd-vb77mk",
+        "imageUrl": "/audit-files/mrbod5hd-vb77mk/260708_260623_STEP3_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%85%E1%85%AD%E1%84%89%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%AF-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP3_보험료산출(월납)",
+        "riskLevel": "위험",
+        "fix": "월납 선택 시 연납 대비 연간 총액이 증가하는 이유(할증률, 수수료 등)와 정확한 차액을 명시해야 합니다. 또한, 연납과 월납의 연간 총 보험료를 나란히 비교할 수 있는 UI를 제공하여 사용자가 비용 차이를 직관적으로 이해하고 선택할 수 있도록 개선해야 합니다.",
+        "reason": "월납 결제 시 연납 대비 연간 총 보험료가 약 65,010원 더 높게 책정되지만, 이 차액과 그 원인(할증, 수수료 등)이 명확하게 고지되지 않아 사용자가 월납이 더 비싸다는 사실을 인지하기 어렵습니다. 이는 사용자의 합리적인 결제 방식 선택을 방해합니다.",
+        "checklist": "공정거래위원회 온라인 다크패턴 자율관리 가이드라인 (중요 정보 은폐), 금융소비자 보호에 관한 법률 (금융상품 설명의무)",
+        "area": "결제 방식 선택 및 비용 비교",
+        "sourceFileName": "260708_260623_STEP3_보험료산출-월납.xlsx",
+        "needsReview": true,
+        "uploadedAt": "2026-07-08T06:06:25.541Z",
+        "reportTitle": "260623_STEP3_보험료산출(월납)",
+        "files": [
+          {
+            "name": "260708_260623_STEP3_보험료산출-월납.xlsx",
+            "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "size": 654392,
+            "url": "/audit-files/mrbod5hd-vb77mk/260708_260623_STEP3_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%85%E1%85%AD%E1%84%89%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%AF-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+          }
+        ]
+      },
+      {
+        "id": "mrbod5hd-vb77mk-2",
+        "reportId": "mrbod5hd-vb77mk",
+        "imageUrl": "/audit-files/mrbod5hd-vb77mk/260708_260623_STEP3_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%85%E1%85%AD%E1%84%89%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%AF-%E1%84%8B%E1%85%AF%E1%86%AF%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP3_보험료산출(월납)",
+        "riskLevel": "보통",
+        "fix": "'최초 보험료' 옆에 정보 아이콘이나 설명을 추가하여, 해당 금액이 매월 예상 보험료와 다른 이유를 명확하게 안내해야 합니다. 예를 들어, '최초 보험료는 가입 시점에 따라 일할 계산되어 매월 예상 보험료와 다를 수 있습니다'와 같은 설명을 제공할 수 있습니다.",
+        "reason": "월납 선택 시 '최초 보험료'가 '매월 예상 보험료'보다 두 배 이상 높게 표시되지만, 이러한 차이가 발생하는 구체적인 이유(예: 가입 시점의 일할 계산, 초기 수수료 등)에 대한 설명이 부족하여 사용자가 혼란을 겪을 수 있습니다.",
+        "checklist": "전자상거래 등에서의 소비자보호에 관한 법률 (중요 정보 고지 의무), 금융소비자 보호에 관한 법률 (금융상품 설명의무)",
+        "area": "월납 최초 보험료 설명",
+        "sourceFileName": "260708_260623_STEP3_보험료산출-월납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.541Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5gt-6ezoze",
+    "title": "260623_STEP3_보험료산출(연납)",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.522Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP3_보험료산출-연납.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 442826,
+        "url": "/audit-files/mrbod5gt-6ezoze/260708_260623_STEP3_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%85%E1%85%AD%E1%84%89%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%AF-%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%82%E1%85%A1%E1%86%B8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5gt-6ezoze-1",
+        "reportId": "mrbod5gt-6ezoze",
+        "imageUrl": "/audit-files/mrbod5gt-6ezoze/260708_260623_STEP3_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%85%E1%85%AD%E1%84%89%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%AF-%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP3_보험료산출(연납)",
+        "riskLevel": "보통",
+        "fix": "'추천 보장 적용' 토글 옆에 정보 아이콘을 추가하여, 클릭 시 추천 보장의 구성 기준 및 포함되는 보장 항목 리스트를 상세히 안내해야 합니다. 토글이 기본으로 활성화되어 있다면 그 사실을 명확히 고지해야 합니다.",
+        "reason": "'추천 보장 적용' 토글의 기본 상태와 활성화 시 적용되는 구체적인 보장 항목에 대한 설명이 부족하여 사용자가 합리적인 선택을 하기 어렵습니다.",
+        "checklist": "금융소비자 보호에 관한 법률 (금융상품 설명의무), 공정거래위원회 온라인 다크패턴 자율관리 가이드라인 (중요 정보 미고지)",
+        "area": "보장 범위 선택",
+        "sourceFileName": "260708_260623_STEP3_보험료산출-연납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.522Z"
+      },
+      {
+        "id": "mrbod5gt-6ezoze-2",
+        "reportId": "mrbod5gt-6ezoze",
+        "imageUrl": "/audit-files/mrbod5gt-6ezoze/260708_260623_STEP3_%E1%84%87%E1%85%A9%E1%84%92%E1%85%A5%E1%86%B7%E1%84%85%E1%85%AD%E1%84%89%E1%85%A1%E1%86%AB%E1%84%8E%E1%85%AE%E1%86%AF-%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%82%E1%85%A1%E1%86%B8-image1.png",
+        "screenName": "260623_STEP3_보험료산출(연납)",
+        "riskLevel": "보통",
+        "fix": "해당 문구를 '추가 비용 없는 기본 특약 9건 자동 적용' 또는 '선택된 추가 특약 없음' 등 사용자가 오해 없이 이해할 수 있도록 명확하게 수정해야 합니다.",
+        "reason": "'선택특약 총 9건 가입 0원' 문구가 0원짜리 특약이 자동으로 가입되었다는 의미인지, 아니면 추가 비용이 없는 특약이 선택되었다는 의미인지 모호하여 사용자가 혼동할 수 있습니다.",
+        "checklist": "전자상거래 등에서의 소비자보호에 관한 법률 (기만적 표시), 공정거래위원회 온라인 다크패턴 자율관리 가이드라인 (오인 유도)",
+        "area": "특약 가입 현황 표시",
+        "sourceFileName": "260708_260623_STEP3_보험료산출-연납.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.522Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5gb-5l02ox",
+    "title": "260623_STEP2_계산할 자동차",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.502Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP2_계산할_자동차.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 185512,
+        "url": "/audit-files/mrbod5gb-5l02ox/260708_260623_STEP2_%E1%84%80%E1%85%A8%E1%84%89%E1%85%A1%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AF_%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5gb-5l02ox-1",
+        "reportId": "mrbod5gb-5l02ox",
+        "imageUrl": "/audit-files/mrbod5gb-5l02ox/260708_260623_STEP2_%E1%84%80%E1%85%A8%E1%84%89%E1%85%A1%E1%86%AB%E1%84%92%E1%85%A1%E1%86%AF_%E1%84%8C%E1%85%A1%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8E%E1%85%A1-image1.png",
+        "screenName": "260623_STEP2_계산할 자동차",
+        "riskLevel": "보통",
+        "fix": "차량별 실제 만기 기한에 따라 배너의 색상과 문구를 다르게 적용하고, 만기 여유가 있는 차량은 강조색(주황색) 사용을 지양하십시오.",
+        "reason": "모든 차량에 일괄적으로 '가입 가능일이 6일 남았어요!'라는 주황색 강조 배너를 노출하여 불필요한 가입 압박감을 조성합니다.",
+        "checklist": "공정거래위원회 온라인 다크패턴 자율관리 가이드라인 (반복적 간섭 및 압박 방지)",
+        "area": "차량 카드 상단 안내 배너",
+        "sourceFileName": "260708_260623_STEP2_계산할_자동차.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.502Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5fw-n3rk6j",
+    "title": "260623_STEP1_주민등록번호입력",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.490Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP1_주민등록번호입력.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 89805,
+        "url": "/audit-files/mrbod5fw-n3rk6j/260708_260623_STEP1_%E1%84%8C%E1%85%AE%E1%84%86%E1%85%B5%E1%86%AB%E1%84%83%E1%85%B3%E1%86%BC%E1%84%85%E1%85%A9%E1%86%A8%E1%84%87%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5fw-n3rk6j-1",
+        "reportId": "mrbod5fw-n3rk6j",
+        "imageUrl": "/audit-files/mrbod5fw-n3rk6j/260708_260623_STEP1_%E1%84%8C%E1%85%AE%E1%84%86%E1%85%B5%E1%86%AB%E1%84%83%E1%85%B3%E1%86%BC%E1%84%85%E1%85%A9%E1%86%A8%E1%84%87%E1%85%A5%E1%86%AB%E1%84%92%E1%85%A9%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8-image1.png",
+        "screenName": "260623_STEP1_주민등록번호입력",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP1_주민등록번호입력.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.490Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5fm-x12579",
+    "title": "260623_STEP1_이름입력",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.477Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP1_이름입력.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 83587,
+        "url": "/audit-files/mrbod5fm-x12579/260708_260623_STEP1_%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5fm-x12579-1",
+        "reportId": "mrbod5fm-x12579",
+        "imageUrl": "/audit-files/mrbod5fm-x12579/260708_260623_STEP1_%E1%84%8B%E1%85%B5%E1%84%85%E1%85%B3%E1%86%B7%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%85%E1%85%A7%E1%86%A8-image1.png",
+        "screenName": "260623_STEP1_이름입력",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP1_이름입력.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.477Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5fb-lo5yr1",
+    "title": "260623_STEP1_본인인증",
+    "riskLevel": "낮음",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.466Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP1_본인인증.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 127077,
+        "url": "/audit-files/mrbod5fb-lo5yr1/260708_260623_STEP1_%E1%84%87%E1%85%A9%E1%86%AB%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B3%E1%86%BC.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5fb-lo5yr1-1",
+        "reportId": "mrbod5fb-lo5yr1",
+        "imageUrl": "/audit-files/mrbod5fb-lo5yr1/260708_260623_STEP1_%E1%84%87%E1%85%A9%E1%86%AB%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%8B%E1%85%B5%E1%86%AB%E1%84%8C%E1%85%B3%E1%86%BC-image1.png",
+        "screenName": "260623_STEP1_본인인증",
+        "riskLevel": "낮음",
+        "fix": "해당없음",
+        "reason": "해당없음",
+        "checklist": "해당없음",
+        "area": "해당없음",
+        "sourceFileName": "260708_260623_STEP1_본인인증.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.466Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5f1-wmtw4k",
+    "title": "260623_STEP1_가입설계,상품소개동의",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.456Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP1_가입설계-상품소개동의.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 146308,
+        "url": "/audit-files/mrbod5f1-wmtw4k/260708_260623_STEP1_%E1%84%80%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A9%E1%84%80%E1%85%A2%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%B4.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5f1-wmtw4k-1",
+        "reportId": "mrbod5f1-wmtw4k",
+        "imageUrl": "/audit-files/mrbod5f1-wmtw4k/260708_260623_STEP1_%E1%84%80%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A9%E1%84%80%E1%85%A2%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%B4-image1.png",
+        "screenName": "260623_STEP1_가입설계,상품소개동의",
+        "riskLevel": "보통",
+        "fix": "필수 약관 동의 시, '모두 동의하기' 외 개별 항목 동의 여부와 관계없이 '다음' 버튼을 활성화하거나, 각 필수 항목에 대한 명확한 동의 여부 선택을 유도하는 UI 개선이 필요합니다.",
+        "reason": "필수 약관 동의 시 '모두 동의하기' 외 개별 항목 선택이 가능함에도 불구하고, '다음' 버튼 활성화를 위해 모든 필수 항목에 대한 명확한 동의 여부 확인이 필요합니다. 이는 사용자가 개별 약관의 중요성을 인지하고 선택하는 과정을 방해할 수 있습니다.",
+        "checklist": "전자상거래 등에서의 소비자보호에 관한 법률 제17조 (청약철회 등)",
+        "area": "필수 약관 동의",
+        "sourceFileName": "260708_260623_STEP1_가입설계-상품소개동의.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.456Z"
+      },
+      {
+        "id": "mrbod5f1-wmtw4k-2",
+        "reportId": "mrbod5f1-wmtw4k",
+        "imageUrl": "/audit-files/mrbod5f1-wmtw4k/260708_260623_STEP1_%E1%84%80%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A9%E1%84%80%E1%85%A2%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%B4-image1.png",
+        "screenName": "260623_STEP1_가입설계,상품소개동의",
+        "riskLevel": "보통",
+        "fix": "각 수신 방법 선택 옵션에 대한 간략한 설명(예: '문자: 보험 갱신 안내 및 이벤트 정보 수신')을 추가하여 사용자의 이해를 돕고, 선택을 유도해야 합니다.",
+        "reason": "선택 약관 중 '상품 서비스 안내 수신 방법 선택'에서 '전체', '문자', '이메일', '전화(ARS)', '앱 푸시', '우편' 등 다양한 옵션이 제시되나, 각 옵션 선택 시의 구체적인 혜택이나 불이익에 대한 정보가 부족하여 사용자가 합리적인 선택을 하기 어렵습니다.",
+        "checklist": "금융소비자 보호에 관한 법률 제19조 (중요사항 설명 등)",
+        "area": "선택 약관 동의",
+        "sourceFileName": "260708_260623_STEP1_가입설계-상품소개동의.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.456Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbod5ei-qxg2w0",
+    "title": "260623_STEP3_티맵점수연동",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T06:06:25.445Z",
+    "files": [
+      {
+        "name": "260708_260623_STEP3_티맵점수연동.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 82921,
+        "url": "/audit-files/mrbod5ei-qxg2w0/260708_260623_STEP3_%E1%84%90%E1%85%B5%E1%84%86%E1%85%A2%E1%86%B8%E1%84%8C%E1%85%A5%E1%86%B7%E1%84%89%E1%85%AE%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%83%E1%85%A9%E1%86%BC.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbod5ei-qxg2w0-1",
+        "reportId": "mrbod5ei-qxg2w0",
+        "imageUrl": "/audit-files/mrbod5ei-qxg2w0/260708_260623_STEP3_%E1%84%90%E1%85%B5%E1%84%86%E1%85%A2%E1%86%B8%E1%84%8C%E1%85%A5%E1%86%B7%E1%84%89%E1%85%AE%E1%84%8B%E1%85%A7%E1%86%AB%E1%84%83%E1%85%A9%E1%86%BC-image1.png",
+        "screenName": "260623_STEP3_티맵점수연동",
+        "riskLevel": "보통",
+        "fix": "'다음에 할게요' 선택 시 또는 화면 하단 유의사항에 '계약 체결 후에도 마이페이지 등에서 운전점수를 등록하시면 소급하여 할인이 적용됩니다'와 같은 안내 문구를 명시하십시오.",
+        "reason": "계약 후에도 TMAP 점수 등록이 가능하다는 사실을 알리지 않아, 사용자가 지금 당장 인증을 완료해야만 할인을 받을 수 있는 것으로 오인할 우려가 있습니다.",
+        "checklist": "금융소비자보호법 제19조 설명의무 및 전자상거래법 제13조 중요 정보 고지",
+        "area": "안내 문구 영역",
+        "sourceFileName": "260708_260623_STEP3_티맵점수연동.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T06:06:25.445Z"
+      }
+    ]
+  },
+  {
+    "id": "mrbc6al6-phltuf",
+    "title": "B - 공포마케팅",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-08T00:25:10.176Z",
+    "files": [
+      {
+        "name": "dark-pattern-check.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 125064,
+        "url": "/audit-files/mrbc6al6-phltuf/dark-pattern-check.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mrbc6al6-phltuf-1",
+        "reportId": "mrbc6al6-phltuf",
+        "imageUrl": "/audit-files/mrbc6al6-phltuf/dark-pattern-check-image1.png",
+        "screenName": "B - 공포마케팅",
+        "riskLevel": "보통",
+        "fix": "보험료 조회 화면의 본질적인 정보 제공에 집중하고, 추가 보험 상품 안내는 별도의 명확한 섹션이나 프로모션 영역에서 제공하도록 변경합니다. 위험 강조 문구의 표현 방식과 노출 위치를 재검토하여 사용자의 오인이나 과도한 불안감을 유발하지 않도록 조정합니다.",
+        "reason": "보험료 조회 화면에서 법률비용 지원 특약의 부재 시 발생할 수 있는 위험을 강조하며 운전자 보험 가입을 유도하는 것은 사용자의 주된 정보 탐색 목적을 벗어나 잠재적 불안감을 조성하여 추가 상품 가입을 유도할 가능성이 있습니다.",
+        "checklist": "금융소비자 보호에 관한 법률 제20조(금융소비자 오인 유발 금지)",
+        "area": "정보 제공 및 유도",
+        "sourceFileName": "dark-pattern-check.xlsx",
+        "needsReview": false,
+        "uploadedAt": "2026-07-08T00:25:10.176Z"
+      }
+    ]
+  },
+  {
+    "id": "mr38b6j7-irreux",
+    "title": "260623_STEP1_가입설계-상품소개동의.xlsx",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-02T08:14:50.329Z",
+    "files": [
+      {
+        "name": "260623_STEP1_가입설계-상품소개동의.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 145355,
+        "url": "/audit-files/mr38b6j7-irreux/260623_STEP1_%E1%84%80%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%B8%E1%84%89%E1%85%A5%E1%86%AF%E1%84%80%E1%85%A8-%E1%84%89%E1%85%A1%E1%86%BC%E1%84%91%E1%85%AE%E1%86%B7%E1%84%89%E1%85%A9%E1%84%80%E1%85%A2%E1%84%83%E1%85%A9%E1%86%BC%E1%84%8B%E1%85%B4.xlsx"
+      }
+    ],
+    "items": [
+      {
+        "id": "mr38b6j7-irreux-1",
+        "reportId": "mr38b6j7-irreux",
+        "imageUrl": "/audit-files/mr38b6j7-irreux/image1.png",
+        "screenName": "260623_STEP1_가입설계-상품소개동의",
+        "riskLevel": "보통",
+        "fix": "선택 동의 항목에 대해 '모두 동의하지 않음' 버튼을 제공하거나, '선택 동의는 모두 건너뛰기'와 같은 명확한 선택지를 제공하여 사용자가 불필요한 클릭 없이 다음 단계로 진행할 수 있도록 해야 합니다. 또는, '다음' 버튼이 비활성화되는 이유를 명확히 안내해야 합니다.",
+        "reason": "사용자가 선택 동의를 모두 거부하고자 할 때, 아무것도 클릭하지 않으면 다음 단계로 넘어갈 수 없다는 점이 명확히 고지되지 않아 혼란을 야기할 수 있습니다. 이는 사용자가 불필요한 행동을 하거나, 다음 단계로 진행하기 위해 마지못해 특정 선택 동의를 클릭하게 만들 수 있습니다.",
+        "checklist": "공정거래위원회 온라인 다크패턴 자율관리 가이드라인 - 2. 숨은 정보 (중요 정보 미고지), 전자상거래 등에서의 소비자보호에 관한 법률 - 제13조 (정보의 제공)",
+        "area": "선택 동의 처리",
+        "uploadedAt": "2026-07-02T08:14:50.329Z"
+      }
+    ]
+  },
+  {
+    "id": "mr34c17y-jdfxuq",
+    "title": "테스트",
+    "riskLevel": "보통",
+    "description": "",
+    "owner": "",
+    "status": "검토 전",
+    "createdAt": "2026-07-02T06:23:31.633Z",
+    "files": [
+      {
+        "name": "dark-pattern-check.xlsx",
+        "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        "size": 315673,
+        "url": "/audit-files/mr34c17y-jdfxuq/dark-pattern-check.xlsx"
+      }
+    ],
+    "items": []
+  }
+]
