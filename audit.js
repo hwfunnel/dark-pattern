@@ -321,14 +321,20 @@ async function extractAuditItemsFromBrowserFile(file, reportId) {
 
 async function extractAuditItemsFromBrowserXlsx(arrayBuffer, file, reportId) {
   const entries = await unzipEntries(arrayBuffer);
-  const sheetXml = await entryText(entries.get("xl/worksheets/sheet1.xml"));
-  if (!sheetXml) return [];
   const sharedStrings = await parseSharedStrings(entries.get("xl/sharedStrings.xml"));
-  const rows = parseXlsxRows(sheetXml, sharedStrings);
-  if (!rows.length) return [];
-  const headerIndex = rows.findIndex((row) => row.some((cell) => /위험도/.test(cell)) && row.some((cell) => /보완점/.test(cell)));
-  if (headerIndex === -1) return [];
-  const headers = rows[headerIndex].map((cell) => cell.trim());
+  const sheetNames = [...entries.keys()]
+    .filter((name) => /^xl\/worksheets\/sheet\d+\.xml$/i.test(name))
+    .sort((left, right) => left.localeCompare(right, undefined, { numeric: true }));
+  const parsedSheets = [];
+  for (const sheetName of sheetNames) {
+    const sheetXml = await entryText(entries.get(sheetName));
+    const rows = parseXlsxRows(sheetXml, sharedStrings).filter((row) => row.some(Boolean));
+    const headerIndex = findAuditHeaderIndex(rows);
+    if (headerIndex >= 0) parsedSheets.push({ rows, headerIndex });
+  }
+  const parsedSheet = parsedSheets[0];
+  if (!parsedSheet) return [];
+  const headers = parsedSheet.rows[parsedSheet.headerIndex].map((cell) => cell.trim());
   const imageFile = [...entries.keys()].find((name) => /^xl\/media\/image\d+\.(png|jpg|jpeg)$/i.test(name));
   let imageUrl = "";
   if (imageFile) {
@@ -338,9 +344,10 @@ async function extractAuditItemsFromBrowserXlsx(arrayBuffer, file, reportId) {
     await supabaseClient.upload(supabaseBucket, imagePath, new Blob([imageBytes], { type: contentTypeFromName(imageName) }), contentTypeFromName(imageName));
     imageUrl = publicSupabaseFileUrl(imagePath);
   }
-  return rows.slice(headerIndex + 1)
+  return parsedSheet.rows.slice(parsedSheet.headerIndex + 1)
     .filter((row) => row.some(Boolean))
-    .map((row) => ({ ...auditItemFromCells(headers, row, imageUrl), sourceFileName: file.name }));
+    .map((row) => ({ ...auditItemFromCells(headers, row, imageUrl), sourceFileName: file.name }))
+    .filter(hasMeaningfulAuditItem);
 }
 
 function auditItemFromSupabaseRow(item, report = {}) {
@@ -532,17 +539,42 @@ function auditItemFromCells(headers, row, fallbackImageUrl) {
     const index = headers.findIndex((header) => namePattern.test(header));
     return index >= 0 ? cleanText(row[index] || "") : "";
   };
-  const imageValue = value(/이미지|화면 이미지|URL/i);
+  const imageValue = value(/이미지|썸네일|캡처|스크린샷|URL/i);
   const validImageUrl = /^\/|^https?:|^data:image/.test(imageValue) && !/^embedded:/.test(imageValue) ? imageValue : fallbackImageUrl;
   return {
     imageUrl: validImageUrl,
-    screenName: value(/분석 화면|화면명|프레임/i),
-    riskLevel: normalizeAuditRisk(value(/위험도|위험수준/i)),
-    fix: value(/보완점|개선안/i),
-    reason: value(/개선 이유|사유/i),
-    checklist: value(/체크리스트|근거/i),
-    area: value(/개선영역|영역/i)
+    screenName: value(/분석\s*화면|화면\s*명|화면|프레임|페이지|구간|항목|케이스/i),
+    riskLevel: normalizeAuditRisk(value(/위험\s*도|위험\s*수준|리스크|등급/i)),
+    fix: value(/보완\s*점|보완|개선\s*안|문제\s*점|이슈|내용/i),
+    reason: value(/개선\s*이유|개선\s*사유|이유|사유|설명/i),
+    checklist: value(/체크\s*리스트|체크리스트|근거|법률|위반|가이드라인/i),
+    area: value(/개선\s*영역|영역|유형|카테고리/i)
   };
+}
+
+function findAuditHeaderIndex(rows) {
+  let bestIndex = -1;
+  let bestScore = 0;
+  rows.slice(0, 30).forEach((row, index) => {
+    const joined = row.join(" ");
+    const score = [
+      /이미지|썸네일|캡처|스크린샷|URL/i,
+      /분석\s*화면|화면\s*명|화면|프레임|페이지|구간|항목|케이스/i,
+      /위험\s*도|위험\s*수준|리스크|등급/i,
+      /보완\s*점|보완|개선\s*안|문제\s*점|이슈|내용/i,
+      /개선\s*이유|개선\s*사유|이유|사유|설명/i,
+      /체크\s*리스트|체크리스트|근거|법률|위반|가이드라인/i
+    ].reduce((count, pattern) => count + (pattern.test(joined) ? 1 : 0), 0);
+    if (score > bestScore) {
+      bestScore = score;
+      bestIndex = index;
+    }
+  });
+  return bestScore >= 2 ? bestIndex : -1;
+}
+
+function hasMeaningfulAuditItem(item) {
+  return Boolean(item.screenName || item.fix || item.reason || item.checklist || item.area);
 }
 
 async function unzipEntries(arrayBuffer) {
