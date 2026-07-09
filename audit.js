@@ -260,6 +260,9 @@ async function createSupabaseAuditReport(file) {
     url: fileUrl
   };
   const extractedItems = await extractAuditItemsFromBrowserFile(file, reportId);
+  if (/\.xlsx$/i.test(file.name) && !extractedItems.length) {
+    throw new Error("엑셀에서 검수 항목을 찾지 못했습니다. 컬럼명을 확인해 주세요.");
+  }
   const firstItem = extractedItems[0] || {};
   const report = {
     id: reportId,
