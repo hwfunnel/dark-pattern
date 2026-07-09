@@ -582,6 +582,39 @@ function hasMeaningfulAuditItem(item) {
 
 async function unzipEntries(arrayBuffer) {
   const bytes = new Uint8Array(arrayBuffer);
+  const centralEntries = await unzipEntriesFromCentralDirectory(bytes);
+  if (centralEntries.size) return centralEntries;
+  return unzipEntriesFromLocalHeaders(bytes);
+}
+
+async function unzipEntriesFromCentralDirectory(bytes) {
+  const entries = new Map();
+  const decoder = new TextDecoder();
+  const eocdOffset = findEndOfCentralDirectory(bytes);
+  if (eocdOffset < 0) return entries;
+  const centralOffset = readUint32(bytes, eocdOffset + 16);
+  let offset = centralOffset;
+  while (offset < bytes.length - 46 && readUint32(bytes, offset) === 0x02014b50) {
+    const method = readUint16(bytes, offset + 10);
+    const compressedSize = readUint32(bytes, offset + 20);
+    const uncompressedSize = readUint32(bytes, offset + 24);
+    const nameLength = readUint16(bytes, offset + 28);
+    const extraLength = readUint16(bytes, offset + 30);
+    const commentLength = readUint16(bytes, offset + 32);
+    const localHeaderOffset = readUint32(bytes, offset + 42);
+    const name = decoder.decode(bytes.slice(offset + 46, offset + 46 + nameLength));
+    const localNameLength = readUint16(bytes, localHeaderOffset + 26);
+    const localExtraLength = readUint16(bytes, localHeaderOffset + 28);
+    const dataStart = localHeaderOffset + 30 + localNameLength + localExtraLength;
+    const compressed = bytes.slice(dataStart, dataStart + compressedSize);
+    const data = await unzipFileData(method, compressed);
+    if (data.length || uncompressedSize === 0) entries.set(name, data);
+    offset += 46 + nameLength + extraLength + commentLength;
+  }
+  return entries;
+}
+
+async function unzipEntriesFromLocalHeaders(bytes) {
   const entries = new Map();
   const decoder = new TextDecoder();
   let offset = 0;
@@ -595,13 +628,25 @@ async function unzipEntries(arrayBuffer) {
     const name = decoder.decode(bytes.slice(offset + 30, offset + 30 + nameLength));
     const dataStart = offset + 30 + nameLength + extraLength;
     const compressed = bytes.slice(dataStart, dataStart + compressedSize);
-    let data = new Uint8Array();
-    if (method === 0) data = compressed;
-    if (method === 8) data = await inflateRaw(compressed);
+    const data = await unzipFileData(method, compressed);
     if (data.length || uncompressedSize === 0) entries.set(name, data);
     offset = dataStart + compressedSize;
   }
   return entries;
+}
+
+async function unzipFileData(method, compressed) {
+  if (method === 0) return compressed;
+  if (method === 8) return await inflateRaw(compressed);
+  return new Uint8Array();
+}
+
+function findEndOfCentralDirectory(bytes) {
+  const minOffset = Math.max(0, bytes.length - 0xffff - 22);
+  for (let offset = bytes.length - 22; offset >= minOffset; offset -= 1) {
+    if (readUint32(bytes, offset) === 0x06054b50) return offset;
+  }
+  return -1;
 }
 
 async function inflateRaw(bytes) {
